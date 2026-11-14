@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { MotionConfig } from 'motion/react';
+import { motion, MotionConfig } from 'motion/react';
 import { SCENES, type SceneId } from './constants/eventData';
 import { MusicProvider } from './context/MusicContext';
 import {
@@ -11,6 +11,7 @@ import { EventDetails } from './components/EventDetails';
 import { CountdownSection } from './components/CountdownSection';
 import { VenueSection } from './components/VenueSection';
 import { ClosingSection } from './components/ClosingSection';
+import { SectionTransitionBridge } from './components/OrnamentalMotifs';
 
 export default function App() {
   const [openingPhase, setOpeningPhase] = useState<OpeningPhase>('closed');
@@ -26,12 +27,6 @@ export default function App() {
   const handleOpenComplete = useCallback(() => {
     setOpeningPhase('opened');
     setActiveScene('couple');
-  }, []);
-
-  const handleSkipToOpen = useCallback(() => {
-    setOpeningPhase('opened');
-    setActiveScene('couple');
-    window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
   const handleReplayCover = useCallback(() => {
@@ -97,16 +92,23 @@ export default function App() {
               phase={openingPhase}
               onStartOpen={handleStartOpen}
               onOpenComplete={handleOpenComplete}
-              onSkipToOpen={handleSkipToOpen}
               onContinueToNext={() => scrollToScene('celebration')}
             />
 
             {isOpened && (
-              <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <SectionTransitionBridge />
                 <EventDetails onContinue={() => scrollToScene('countdown')} />
+                <SectionTransitionBridge />
                 <CountdownSection />
+                <SectionTransitionBridge />
                 <VenueSection />
-              </>
+                <SectionTransitionBridge variant="toCrimson" />
+              </motion.div>
             )}
           </main>
 

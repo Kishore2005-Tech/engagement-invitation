@@ -1,9 +1,22 @@
-import { Volume2, VolumeX } from 'lucide-react';
+import { VolumeX } from 'lucide-react';
 import { MEDLEY_TRACKS, useMusic } from '../context/MusicContext';
 
 interface MusicControllerProps {
   compact?: boolean;
   variant?: 'light' | 'dark';
+}
+
+function GoldEqualizerBars({ colorClass }: { colorClass: string }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-flex items-end justify-center gap-[2.5px] w-3.5 h-3.5 shrink-0"
+    >
+      <span className={`w-[2px] h-3 origin-bottom eq-bar-1 ${colorClass}`} />
+      <span className={`w-[2px] h-3.5 origin-bottom eq-bar-2 ${colorClass}`} />
+      <span className={`w-[2px] h-2.5 origin-bottom eq-bar-3 ${colorClass}`} />
+    </span>
+  );
 }
 
 export function MusicController({
@@ -21,29 +34,37 @@ export function MusicController({
 
   const baseColorClasses =
     variant === 'dark'
-      ? 'border-[#B99A62]/45 text-[#F7F0E5] hover:bg-[#B99A62]/15'
-      : 'border-[#B99A62]/50 text-[#320A14] hover:bg-[#E7D8C5]/55';
+      ? 'border-[#D6BD8D]/75 bg-[#2E0710]/92 backdrop-blur-md text-[#F7F0E5] shadow-[0_10px_28px_rgba(12,2,4,0.55)] hover:bg-[#3F0A17]'
+      : 'border-[#B99A62]/55 bg-[#F7F0E5]/90 backdrop-blur-sm text-[#320A14] hover:bg-[#E7D8C5]/75';
+
+  const iconColor = variant === 'dark' ? 'text-[#D6BD8D]' : 'text-[#8E713F]';
+  const barColor = variant === 'dark' ? 'bg-[#D6BD8D]' : 'bg-[#8E713F]';
+
+  const sizeClasses = compact
+    ? 'w-10 h-10 p-0 justify-center'
+    : 'h-10 w-[144px] px-3.5 justify-center';
+
+  const statusTooltip = isPlaying
+    ? `Now playing: ${activeTrack.label} · Click to pause`
+    : 'Play music: Perfect, Arabic Kuthu, and Mannipaaya medley';
 
   return (
     <button
       type="button"
       onClick={toggleMusic}
+      title={statusTooltip}
       aria-pressed={isPlaying}
-      aria-label={
-        isPlaying
-          ? `Pause medley (currently playing ${activeTrack.label} theme)`
-          : 'Play wedding mashup medley: Perfect, Arabic Kuthu, and Mannipaaya'
-      }
-      className={`inline-flex items-center gap-2 border px-3.5 py-2 text-xs font-sans tracking-[0.14em] uppercase transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B99A62] ${baseColorClasses}`}
+      aria-label={statusTooltip}
+      className={`inline-flex items-center gap-2 border text-[11px] font-sans font-medium tracking-[0.16em] uppercase transition-all duration-300 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D6BD8D] ${sizeClasses} ${baseColorClasses}`}
     >
       {isPlaying ? (
-        <Volume2 className="w-3.5 h-3.5 text-[#B99A62] shrink-0" aria-hidden="true" />
+        <GoldEqualizerBars colorClass={barColor} />
       ) : (
-        <VolumeX className="w-3.5 h-3.5 text-[#B99A62] shrink-0" aria-hidden="true" />
+        <VolumeX className={`w-3.5 h-3.5 shrink-0 ${iconColor}`} aria-hidden="true" />
       )}
       {!compact && (
-        <span className="max-w-[170px] truncate">
-          {isPlaying ? `Mix · ${activeTrack.label}` : 'Play Mix'}
+        <span className="leading-none pt-[1px]">
+          {isPlaying ? 'Music On' : 'Play Music'}
         </span>
       )}
     </button>

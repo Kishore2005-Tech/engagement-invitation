@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
+import { motion } from 'motion/react';
 
 interface CornerFiligreeProps {
   className?: string;
@@ -319,3 +320,204 @@ export function BotanicalArtwork({
     />
   );
 }
+
+interface LuxuryFloralClusterProps {
+  className?: string;
+  mirrorX?: boolean;
+  mirrorY?: boolean;
+}
+
+export function LuxuryFloralCluster({
+  className = '',
+  mirrorX = false,
+  mirrorY = false,
+}: LuxuryFloralClusterProps) {
+  const uid = useId();
+  const roseOuterId = `rosePetalOuter-${uid}`;
+  const roseInnerId = `rosePetalInner-${uid}`;
+  const goldLeafId = `goldLeafGrad-${uid}`;
+  const lotusBlushId = `lotusBlush-${uid}`;
+
+  const scaleX = mirrorX ? -1 : 1;
+  const scaleY = mirrorY ? -1 : 1;
+
+  return (
+    <svg
+      viewBox="0 0 260 260"
+      fill="none"
+      aria-hidden="true"
+      className={className}
+      style={{ transform: `scale(${scaleX}, ${scaleY})` }}
+    >
+      <defs>
+        <radialGradient id={roseOuterId} cx="45%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#F7F0E5" />
+          <stop offset="65%" stopColor="#E6C3B8" />
+          <stop offset="100%" stopColor="#B88278" />
+        </radialGradient>
+        <radialGradient id={roseInnerId} cx="45%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#FFF9F2" />
+          <stop offset="60%" stopColor="#EED2C7" />
+          <stop offset="100%" stopColor="#C9988E" />
+        </radialGradient>
+        <linearGradient id={goldLeafId} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#E6CE9D" />
+          <stop offset="55%" stopColor="#B99A62" />
+          <stop offset="100%" stopColor="#7C5E30" />
+        </linearGradient>
+        <radialGradient id={lotusBlushId} cx="50%" cy="35%" r="65%">
+          <stop offset="0%" stopColor="#FAF3EA" />
+          <stop offset="70%" stopColor="#DFB7AC" />
+          <stop offset="100%" stopColor="#B99A62" />
+        </radialGradient>
+      </defs>
+
+      {/* Graceful Gold Trailing Stems */}
+      <path
+        d="M18 22 C74 34 128 68 176 122 M28 38 C42 98 68 156 112 204 M44 26 C106 24 166 36 222 66"
+        stroke={`url(#${goldLeafId})`}
+        strokeWidth="1.35"
+        strokeOpacity="0.82"
+        strokeLinecap="round"
+      />
+
+      {/* Sculpted Gold & Botanical Leaves */}
+      <g fill={`url(#${goldLeafId})`} fillOpacity="0.45" stroke="#D6BD8D" strokeWidth="0.9">
+        <path d="M116 42 C134 24 156 26 164 42 C148 54 128 52 116 42 Z" />
+        <path d="M168 58 C188 42 212 46 218 62 C200 72 180 68 168 58 Z" />
+        <path d="M44 106 C28 124 30 148 46 156 C58 140 56 120 44 106 Z" />
+        <path d="M68 154 C54 174 58 198 74 206 C86 188 82 166 68 154 Z" />
+        <path d="M128 96 C148 92 166 102 168 118 C152 124 134 114 128 96 Z" />
+        <path d="M92 128 C86 148 94 168 110 172 C118 156 110 136 92 128 Z" />
+      </g>
+
+      {/* Primary Hero Cream-Blush Garden Rose */}
+      <g transform="translate(68, 68)">
+        <circle cx="0" cy="0" r="36" fill={`url(#${roseOuterId})`} fillOpacity="0.95" />
+        <path
+          d="M-30 -6 C-34 -28 -10 -38 8 -30 C28 -34 40 -12 30 8 C34 28 10 40 -10 30 C-28 34 -38 12 -30 -6 Z"
+          fill={`url(#${roseOuterId})`}
+          stroke="#B99A62"
+          strokeWidth="0.9"
+        />
+        <path
+          d="M-21 -4 C-24 -20 -6 -28 6 -21 C20 -24 28 -8 21 6 C24 20 8 28 -6 21 C-20 24 -28 8 -21 -4 Z"
+          fill={`url(#${roseInnerId})`}
+          stroke="#C9988E"
+          strokeWidth="0.8"
+        />
+        <path
+          d="M-12 -2 C-14 -12 -4 -18 4 -12 C12 -14 18 -4 12 4 C14 12 4 18 -4 12 C-12 14 -16 4 -12 -2 Z"
+          fill="#FFF8F0"
+          stroke="#B99A62"
+          strokeWidth="0.7"
+        />
+        <path
+          d="M-5 0 C-5 -6 5 -6 5 0 C5 6 -5 6 -5 0 Z"
+          fill="#D6BD8D"
+          fillOpacity="0.65"
+        />
+      </g>
+
+      {/* Secondary Royal Lotus Blossom */}
+      <g transform="translate(142, 62) rotate(24)">
+        <path
+          d="M0 -28 C10 -12 10 8 0 18 C-10 8 -10 -12 0 -28 Z"
+          fill={`url(#${lotusBlushId})`}
+          stroke="#B99A62"
+          strokeWidth="0.9"
+        />
+        <path
+          d="M0 18 C-16 10 -24 -4 -20 -18 C-10 -14 -4 -2 0 18 Z"
+          fill={`url(#${lotusBlushId})`}
+          stroke="#B99A62"
+          strokeWidth="0.85"
+        />
+        <path
+          d="M0 18 C16 10 24 -4 20 -18 C10 -14 4 -2 0 18 Z"
+          fill={`url(#${lotusBlushId})`}
+          stroke="#B99A62"
+          strokeWidth="0.85"
+        />
+        <circle cx="0" cy="4" r="3" fill="#D6BD8D" />
+      </g>
+
+      {/* Delicate Secondary Rose Bud (Lower Left) */}
+      <g transform="translate(64, 140) rotate(-18)">
+        <circle cx="0" cy="0" r="21" fill={`url(#${roseOuterId})`} stroke="#B99A62" strokeWidth="0.8" />
+        <path
+          d="M-12 -2 C-12 -13 4 -15 10 -6 C16 2 8 15 -4 12 C-12 10 -14 3 -12 -2 Z"
+          fill={`url(#${roseInnerId})`}
+          stroke="#C9988E"
+          strokeWidth="0.7"
+        />
+        <circle cx="0" cy="0" r="4" fill="#E6CE9D" />
+      </g>
+
+      {/* Five-Petal Indian Jasmine Star Blossoms */}
+      {[
+        { x: 186, y: 108, scale: 1 },
+        { x: 112, y: 178, scale: 0.9 },
+        { x: 206, y: 66, scale: 0.72 },
+      ].map((j, idx) => (
+        <g
+          key={idx}
+          transform={`translate(${j.x}, ${j.y}) scale(${j.scale})`}
+        >
+          {[0, 72, 144, 216, 288].map((angle) => (
+            <ellipse
+              key={angle}
+              cx="0"
+              cy="-9"
+              rx="3.8"
+              ry="7.5"
+              transform={`rotate(${angle})`}
+              fill="#FAF4EC"
+              stroke="#B99A62"
+              strokeWidth="0.65"
+            />
+          ))}
+          <circle cx="0" cy="0" r="2.6" fill="#D6BD8D" />
+        </g>
+      ))}
+
+      {/* Fine Gold Dew Accents */}
+      <circle cx="164" cy="138" r="2.2" fill="#E6CE9D" fillOpacity="0.85" />
+      <circle cx="136" cy="152" r="1.8" fill="#E6CE9D" fillOpacity="0.75" />
+      <circle cx="192" cy="84" r="1.6" fill="#E6CE9D" fillOpacity="0.75" />
+    </svg>
+  );
+}
+
+export function SectionTransitionBridge({
+  variant = 'light',
+}: {
+  variant?: 'light' | 'toCrimson';
+}) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`relative w-full py-4 sm:py-6 flex flex-col items-center justify-center overflow-hidden ${
+        variant === 'toCrimson'
+          ? 'bg-gradient-to-b from-[#E7D8C5]/40 via-[#B88B7B]/18 to-[#4A0E1B]'
+          : 'bg-transparent'
+      }`}
+    >
+      <motion.div
+        initial={{ scaleY: 0, opacity: 0 }}
+        whileInView={{ scaleY: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="w-px h-10 sm:h-14 origin-top bg-gradient-to-b from-transparent via-[#B99A62]/75 to-transparent"
+      />
+      <motion.span
+        initial={{ scale: 0, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.55, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="my-1 block w-2 h-2 rotate-45 border border-[#B99A62] bg-[#F7F0E5]"
+      />
+    </div>
+  );
+}
+

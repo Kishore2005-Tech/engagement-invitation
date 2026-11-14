@@ -26,7 +26,7 @@ export function VenueSection() {
     <section
       id="venue"
       aria-label="Venue and Map Directions"
-      className="relative w-full bg-[#E7D8C5]/40 border-t border-[#B99A62]/30 py-20 sm:py-28 px-4 sm:px-8"
+      className="relative w-full scroll-mt-14 sm:scroll-mt-16 bg-[#E7D8C5]/40 border-t border-[#B99A62]/30 py-20 sm:py-28 px-4 sm:px-8"
     >
       <div className="mx-auto max-w-5xl">
         {/* Heading & Warm Welcome Message */}

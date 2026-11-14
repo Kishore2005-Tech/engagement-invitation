@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { EVENT_DETAILS, EVENT_IMAGES } from '../constants/eventData';
 import { AmbientParticles } from './AmbientParticles';
 import { MusicController } from './MusicController';
 import {
   BotanicalArtwork,
+  CornerFiligree,
   GoldHeartIcon,
+  LuxuryFloralCluster,
   OrnamentalDivider,
 } from './OrnamentalMotifs';
 
@@ -16,7 +18,6 @@ interface RoyalOpeningStageProps {
   phase: OpeningPhase;
   onStartOpen: () => void;
   onOpenComplete: () => void;
-  onSkipToOpen: () => void;
   onContinueToNext: () => void;
 }
 
@@ -26,50 +27,73 @@ const SILK_PLEATS_LEFT =
 const SILK_PLEATS_RIGHT =
   'repeating-linear-gradient(-90deg, #E8D9C5 0px, #F6EFE3 18px, #D6C1A6 36px, #EFE4D4 54px, #CBB394 72px, #F3EAD9 90px)';
 
-function BotanicalDoorPattern({ side }: { side: 'left' | 'right' }) {
+function LuxuryDoorFoilPanel({ side }: { side: 'left' | 'right' }) {
+  const isLeft = side === 'left';
   return (
-    <svg
-      viewBox="0 0 400 900"
-      preserveAspectRatio="xMidYMid slice"
+    <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 w-full h-full opacity-25 ${
-        side === 'right' ? '-scale-x-100' : ''
-      }`}
+      className="pointer-events-none absolute inset-0 overflow-hidden"
     >
-      <g stroke="#D6BD8D" strokeWidth="1.2" fill="#D6BD8D" fillOpacity="0.16">
-        {/* Top botanical spray */}
-        <path d="M40 80 C100 120 140 180 120 260" fill="none" />
-        <ellipse cx="82" cy="106" rx="22" ry="9" transform="rotate(-28 82 106)" />
-        <ellipse cx="115" cy="148" rx="26" ry="10" transform="rotate(18 115 148)" />
-        <ellipse cx="95" cy="196" rx="22" ry="9" transform="rotate(-35 95 196)" />
-        <ellipse cx="132" cy="230" rx="20" ry="8" transform="rotate(24 132 230)" />
+      {/* Velvet directional candlelight sheen */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: isLeft
+            ? 'radial-gradient(ellipse at 92% 48%, rgba(168,52,76,0.34) 0%, rgba(74,14,27,0.08) 48%, rgba(20,2,6,0.42) 100%)'
+            : 'radial-gradient(ellipse at 8% 48%, rgba(168,52,76,0.34) 0%, rgba(74,14,27,0.08) 48%, rgba(20,2,6,0.42) 100%)',
+        }}
+      />
 
-        {/* Mid outer botanical vines */}
-        <path d="M310 210 C255 280 260 350 315 410" fill="none" />
-        <ellipse cx="282" cy="255" rx="24" ry="9" transform="rotate(34 282 255)" />
-        <ellipse cx="268" cy="312" rx="25" ry="10" transform="rotate(-22 268 312)" />
-        <ellipse cx="294" cy="368" rx="22" ry="9" transform="rotate(28 294 368)" />
+      {/* Ultra-subtle fine vertical silk-velvet weave */}
+      <div
+        className="absolute inset-0 opacity-[0.045]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(90deg, #F7F0E5 0px, #F7F0E5 1px, transparent 1px, transparent 7px)',
+        }}
+      />
 
-        {/* Lower diagonal foliage */}
-        <path d="M35 560 C110 610 155 690 135 790" fill="none" />
-        <ellipse cx="78" cy="594" rx="25" ry="10" transform="rotate(-24 78 594)" />
-        <ellipse cx="118" cy="648" rx="27" ry="10" transform="rotate(20 118 648)" />
-        <ellipse cx="96" cy="710" rx="23" ry="9" transform="rotate(-32 96 710)" />
-        <ellipse cx="144" cy="754" rx="22" ry="9" transform="rotate(16 144 754)" />
+      {/* Outer Gilded Architectural Frame */}
+      <div
+        className={`absolute top-3 bottom-3 sm:top-6 sm:bottom-6 border border-[#D6BD8D]/42 ${
+          isLeft ? 'left-3 sm:left-6 right-1.5 sm:right-2.5' : 'right-3 sm:right-6 left-1.5 sm:left-2.5'
+        }`}
+      />
 
-        {/* Subtle inner border */}
-        <rect
-          x="22"
-          y="22"
-          width="356"
-          height="856"
-          fill="none"
-          stroke="#B99A62"
-          strokeOpacity="0.45"
-          strokeWidth="1"
-        />
-      </g>
-    </svg>
+      {/* Inner Recessed Foil Hairline */}
+      <div
+        className={`absolute top-5 bottom-5 sm:top-9 sm:bottom-9 border border-[#B99A62]/26 ${
+          isLeft ? 'left-5 sm:left-9 right-3 sm:right-5' : 'right-5 sm:right-9 left-3 sm:left-5'
+        }`}
+      />
+
+      {/* Classy Architectural Corner Filigree */}
+      <CornerFiligree
+        position={isLeft ? 'top-left' : 'top-right'}
+        color="#D6BD8D"
+        className={`absolute top-4 sm:top-7 w-11 h-11 sm:w-16 sm:h-16 opacity-60 ${
+          isLeft ? 'left-4 sm:left-7' : 'right-4 sm:right-7'
+        }`}
+      />
+      <CornerFiligree
+        position={isLeft ? 'bottom-left' : 'bottom-right'}
+        color="#D6BD8D"
+        className={`absolute bottom-4 sm:bottom-7 w-11 h-11 sm:w-16 sm:h-16 opacity-60 ${
+          isLeft ? 'left-4 sm:left-7' : 'right-4 sm:right-7'
+        }`}
+      />
+
+      {/* Gilded Center Seam Bevel */}
+      <div
+        className={`absolute top-0 bottom-0 w-[2px] sm:w-[3px] ${
+          isLeft ? 'right-0' : 'left-0'
+        }`}
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(185,154,98,0.25) 0%, rgba(230,206,157,0.85) 35%, rgba(247,240,229,0.92) 50%, rgba(230,206,157,0.85) 65%, rgba(185,154,98,0.25) 100%)',
+        }}
+      />
+    </div>
   );
 }
 
@@ -224,7 +248,6 @@ export function RoyalOpeningStage({
   phase,
   onStartOpen,
   onOpenComplete,
-  onSkipToOpen,
   onContinueToNext,
 }: RoyalOpeningStageProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -395,8 +418,8 @@ export function RoyalOpeningStage({
               : { x: '0%', skewY: 0 }
           }
           transition={{ duration: 1.65, ease: [0.22, 1, 0.36, 1] }}
-          style={{ backgroundImage: SILK_PLEATS_LEFT }}
-          className="absolute top-0 bottom-0 left-0 w-1/2 shadow-[8px_0_32px_rgba(24,60,50,0.16)]"
+          style={{ backgroundImage: SILK_PLEATS_LEFT, willChange: 'transform' }}
+          className="absolute top-0 bottom-0 left-0 w-1/2 shadow-[8px_0_32px_rgba(46,7,16,0.18)]"
         >
           {/* Beaded Gold & Pearl Inner Edge */}
           <div
@@ -417,8 +440,8 @@ export function RoyalOpeningStage({
               : { x: '0%', skewY: 0 }
           }
           transition={{ duration: 1.65, ease: [0.22, 1, 0.36, 1] }}
-          style={{ backgroundImage: SILK_PLEATS_RIGHT }}
-          className="absolute top-0 bottom-0 right-0 w-1/2 shadow-[-8px_0_32px_rgba(24,60,50,0.16)]"
+          style={{ backgroundImage: SILK_PLEATS_RIGHT, willChange: 'transform' }}
+          className="absolute top-0 bottom-0 right-0 w-1/2 shadow-[-8px_0_32px_rgba(46,7,16,0.18)]"
         >
           {/* Beaded Gold & Pearl Inner Edge */}
           <div
@@ -450,39 +473,30 @@ export function RoyalOpeningStage({
           phase === 'opened' ? 'pointer-events-none' : ''
         }`}
       >
-        {/* Top Utility Controls on Closed Cover Only */}
-        {phase === 'closed' && (
-          <div className="relative z-50 flex items-center justify-between px-4 py-4 sm:px-8 sm:py-6">
-            <MusicController variant="dark" />
-            <button
-              type="button"
-              onClick={onSkipToOpen}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 border border-[#B99A62]/45 bg-[#2E0710]/75 text-xs font-sans uppercase tracking-[0.16em] text-[#F7F0E5] hover:bg-[#2E0710] transition-colors cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D6BD8D]"
-            >
-              <span>Skip</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#D6BD8D]" aria-hidden="true" />
-            </button>
-          </div>
-        )}
-
         {/* Left 3D Cherish Crimson Door */}
         <motion.div
           aria-hidden="true"
           initial={false}
           animate={
             isDoorsOpen
-              ? { x: '-104%', rotateY: -22 }
+              ? { x: '-104%', rotateY: -26 }
               : { x: '0%', rotateY: 0 }
           }
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.45, ease: [0.22, 1, 0.36, 1] }}
           style={{
             transformOrigin: 'left center',
+            willChange: 'transform',
             background:
               'linear-gradient(135deg, #631626 0%, #4A0E1B 52%, #2E0710 100%)',
           }}
-          className="absolute top-0 bottom-0 left-0 w-1/2 border-r border-[#D6BD8D]/75 shadow-[8px_0_32px_rgba(30,4,10,0.55),inset_-18px_0_36px_rgba(24,3,8,0.45)] overflow-hidden"
+          className="absolute top-0 bottom-0 left-0 w-1/2 shadow-[8px_0_36px_rgba(20,2,6,0.6),inset_-22px_0_42px_rgba(20,2,6,0.45)] overflow-hidden"
         >
-          <BotanicalDoorPattern side="left" />
+          <LuxuryDoorFoilPanel side="left" />
+          <LuxuryFloralCluster className="pointer-events-none absolute -top-2 -left-2 w-32 h-32 sm:w-60 sm:h-60 drop-shadow-[0_10px_24px_rgba(20,2,6,0.45)] opacity-95" />
+          <LuxuryFloralCluster
+            mirrorY
+            className="pointer-events-none absolute -bottom-2 -left-2 w-32 h-32 sm:w-60 sm:h-60 drop-shadow-[0_10px_24px_rgba(20,2,6,0.45)] opacity-95"
+          />
         </motion.div>
 
         {/* Right 3D Cherish Crimson Door */}
@@ -491,95 +505,146 @@ export function RoyalOpeningStage({
           initial={false}
           animate={
             isDoorsOpen
-              ? { x: '104%', rotateY: 22 }
+              ? { x: '104%', rotateY: 26 }
               : { x: '0%', rotateY: 0 }
           }
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.45, ease: [0.22, 1, 0.36, 1] }}
           style={{
             transformOrigin: 'right center',
+            willChange: 'transform',
             background:
               'linear-gradient(225deg, #631626 0%, #4A0E1B 52%, #2E0710 100%)',
           }}
-          className="absolute top-0 bottom-0 right-0 w-1/2 border-l border-[#D6BD8D]/75 shadow-[-8px_0_32px_rgba(30,4,10,0.55),inset_18px_0_36px_rgba(24,3,8,0.45)] overflow-hidden"
+          className="absolute top-0 bottom-0 right-0 w-1/2 shadow-[-8px_0_36px_rgba(20,2,6,0.6),inset_22px_0_42px_rgba(20,2,6,0.45)] overflow-hidden"
         >
-          <BotanicalDoorPattern side="right" />
+          <LuxuryDoorFoilPanel side="right" />
+          <LuxuryFloralCluster
+            mirrorX
+            className="pointer-events-none absolute -top-2 -right-2 w-32 h-32 sm:w-60 sm:h-60 drop-shadow-[0_10px_24px_rgba(20,2,6,0.45)] opacity-95"
+          />
+          <LuxuryFloralCluster
+            mirrorX
+            mirrorY
+            className="pointer-events-none absolute -bottom-2 -right-2 w-32 h-32 sm:w-60 sm:h-60 drop-shadow-[0_10px_24px_rgba(20,2,6,0.45)] opacity-95"
+          />
         </motion.div>
 
-        {/* Center Ornate Scalloped "TAP TO OPEN" Medallion (NO names or details) */}
+        {/* Center Ornate Scalloped "TAP TO OPEN" Medallion + Aligned Music Control */}
         <motion.div
           initial={false}
           animate={
             isDoorsOpen
-              ? { opacity: 0, scale: 0.85 }
+              ? { opacity: 0, scale: 0.88 }
               : { opacity: 1, scale: 1 }
           }
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 flex items-center justify-center p-4 pointer-events-none"
+          className="absolute inset-0 flex flex-col items-center justify-center p-4 pointer-events-none"
         >
-          <button
-            type="button"
-            onClick={onStartOpen}
-            disabled={isDoorsOpen}
-            aria-label="Tap to open the engagement invitation"
-            className="pointer-events-auto group relative flex items-center justify-center w-52 h-60 sm:w-60 sm:h-68 cursor-pointer transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-[#D6BD8D]"
-          >
-            {/* Ornate Scalloped Champagne Plaque SVG */}
-            <svg
-              viewBox="0 0 220 260"
-              className="absolute inset-0 w-full h-full drop-shadow-[0_18px_36px_rgba(10,25,20,0.45)]"
+          <div className="relative flex items-center justify-center">
+            {/* Soft Ambient Champagne Halo Behind Medallion */}
+            <motion.div
               aria-hidden="true"
+              animate={
+                shouldReduceMotion || isDoorsOpen
+                  ? { opacity: 0.35, scale: 1 }
+                  : { opacity: [0.28, 0.5, 0.28], scale: [0.96, 1.05, 0.96] }
+              }
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="pointer-events-none absolute w-72 h-72 sm:w-88 sm:h-88 rounded-full blur-2xl"
+              style={{
+                background:
+                  'radial-gradient(circle, rgba(230,206,157,0.42) 0%, rgba(185,154,98,0.14) 50%, transparent 72%)',
+              }}
+            />
+
+            <button
+              type="button"
+              onClick={onStartOpen}
+              disabled={isDoorsOpen}
+              aria-label="Tap to open the engagement invitation"
+              className="pointer-events-auto group relative flex items-center justify-center w-56 h-64 sm:w-64 sm:h-72 cursor-pointer transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.035] active:scale-[0.985] focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-[#D6BD8D]"
             >
-              <path
-                d="M110 10 C128 10 136 24 152 28 C170 32 184 44 190 60 C196 76 208 90 208 110 C208 130 208 130 208 150 C208 170 196 184 190 200 C184 216 170 228 152 232 C136 236 128 250 110 250 C92 250 84 236 68 232 C50 228 36 216 30 200 C24 184 12 170 12 150 C12 130 12 130 12 110 C12 90 24 76 30 60 C36 44 50 32 68 28 C84 24 92 10 110 10 Z"
-                fill="#F7F0E5"
-                stroke="#B99A62"
-                strokeWidth="2.2"
-              />
-              <path
-                d="M110 20 C125 20 132 32 146 36 C162 40 174 50 179 64 C184 78 196 90 196 110 C196 130 196 130 196 150 C196 170 184 182 179 196 C174 210 162 220 146 224 C132 228 125 240 110 240 C95 240 88 228 74 224 C58 220 46 210 41 196 C36 182 24 170 24 150 C24 130 24 130 24 110 C24 90 36 78 41 64 C46 50 58 40 74 36 C88 32 95 20 110 20 Z"
-                fill="none"
-                stroke="#B99A62"
-                strokeOpacity="0.55"
-                strokeWidth="1"
-              />
-            </svg>
-
-            {/* Plaque Text & Sprigs */}
-            <div className="relative z-10 flex flex-col items-center text-center px-6">
-              {/* Top Botanical Sprig */}
-              <svg viewBox="0 0 40 24" className="w-8 h-5 mb-2" aria-hidden="true">
-                <path
-                  d="M20 20 V6 M20 14 C14 12 11 8 11 5 C15 6 18 9 20 14 Z M20 14 C26 12 29 8 29 5 C25 6 22 9 20 14 Z"
-                  fill="#8E713F"
-                  stroke="#8E713F"
-                  strokeWidth="0.9"
-                />
-              </svg>
-
-              <span className="font-display text-lg sm:text-xl tracking-[0.22em] uppercase text-[#4A0E1B] group-hover:text-[#8E713F] transition-colors">
-                Tap To Open
-              </span>
-
-              <span
-                aria-hidden="true"
-                className="mt-2 h-px w-12 bg-[#B99A62]/75 group-hover:w-16 transition-all duration-300"
-              />
-
-              {/* Bottom Botanical Sprig */}
+              {/* Ornate Scalloped Champagne Plaque SVG */}
               <svg
-                viewBox="0 0 40 24"
-                className="w-8 h-5 mt-2 rotate-180"
+                viewBox="0 0 220 260"
+                className="absolute inset-0 w-full h-full drop-shadow-[0_22px_44px_rgba(12,2,4,0.65)]"
                 aria-hidden="true"
               >
                 <path
-                  d="M20 20 V6 M20 14 C14 12 11 8 11 5 C15 6 18 9 20 14 Z M20 14 C26 12 29 8 29 5 C25 6 22 9 20 14 Z"
-                  fill="#8E713F"
-                  stroke="#8E713F"
-                  strokeWidth="0.9"
+                  d="M110 10 C128 10 136 24 152 28 C170 32 184 44 190 60 C196 76 208 90 208 110 C208 130 208 130 208 150 C208 170 196 184 190 200 C184 216 170 228 152 232 C136 236 128 250 110 250 C92 250 84 236 68 232 C50 228 36 216 30 200 C24 184 12 170 12 150 C12 130 12 130 12 110 C12 90 24 76 30 60 C36 44 50 32 68 28 C84 24 92 10 110 10 Z"
+                  fill="#F7F0E5"
+                  stroke="#B99A62"
+                  strokeWidth="2.2"
+                />
+                <path
+                  d="M110 20 C125 20 132 32 146 36 C162 40 174 50 179 64 C184 78 196 90 196 110 C196 130 196 130 196 150 C196 170 184 182 179 196 C174 210 162 220 146 224 C132 228 125 240 110 240 C95 240 88 228 74 224 C58 220 46 210 41 196 C36 182 24 170 24 150 C24 130 24 130 24 110 C24 90 36 78 41 64 C46 50 58 40 74 36 C88 32 95 20 110 20 Z"
+                  fill="none"
+                  stroke="#B99A62"
+                  strokeOpacity="0.55"
+                  strokeWidth="1"
                 />
               </svg>
+
+              {/* Plaque Text & Crests — Optically & Geometrically Dead Center */}
+              <div className="relative z-10 flex flex-col items-center justify-center text-center w-full px-5">
+                {/* Top Royal Diamond Crest */}
+                <svg viewBox="0 0 48 22" className="w-10 h-4 mb-3 shrink-0" aria-hidden="true">
+                  <path
+                    d="M4 11 H17 M31 11 H44"
+                    stroke="#B99A62"
+                    strokeWidth="0.9"
+                    strokeOpacity="0.8"
+                  />
+                  <path
+                    d="M24 3 L30 11 L24 19 L18 11 Z"
+                    fill="#B99A62"
+                    fillOpacity="0.22"
+                    stroke="#8E713F"
+                    strokeWidth="1"
+                  />
+                  <circle cx="24" cy="11" r="2" fill="#8E713F" />
+                </svg>
+
+                <span className="block w-full text-center font-display font-medium text-[15px] sm:text-[17px] tracking-[0.22em] pl-[0.22em] uppercase whitespace-nowrap leading-none text-[#4A0E1B] group-hover:text-[#8E713F] transition-colors">
+                  Tap To Open
+                </span>
+
+                <span
+                  aria-hidden="true"
+                  className="mt-2.5 h-px w-12 bg-[#B99A62]/75 group-hover:w-16 transition-all duration-300"
+                />
+
+                {/* Bottom Royal Diamond Crest */}
+                <svg
+                  viewBox="0 0 48 22"
+                  className="w-10 h-4 mt-3 shrink-0"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 11 H17 M31 11 H44"
+                    stroke="#B99A62"
+                    strokeWidth="0.9"
+                    strokeOpacity="0.8"
+                  />
+                  <path
+                    d="M24 3 L30 11 L24 19 L18 11 Z"
+                    fill="#B99A62"
+                    fillOpacity="0.22"
+                    stroke="#8E713F"
+                    strokeWidth="1"
+                  />
+                  <circle cx="24" cy="11" r="2" fill="#8E713F" />
+                </svg>
+              </div>
+            </button>
+          </div>
+
+          {/* Sleek Fixed-Width Music Button Aligned Directly Below Medallion */}
+          {phase === 'closed' && (
+            <div className="pointer-events-auto mt-7 sm:mt-8 flex justify-center">
+              <MusicController variant="dark" />
             </div>
-          </button>
+          )}
         </motion.div>
       </div>
     </section>

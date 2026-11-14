@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
 import { SCENES, type SceneId } from '../constants/eventData';
 import { MusicController } from './MusicController';
@@ -39,10 +40,13 @@ export function SceneNavigation({
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ opacity: 0, y: -14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-300 ${
           isScrolled
-            ? 'bg-[#F7F0E5]/92 backdrop-blur-md border-b border-[#B99A62]/30 shadow-[0_4px_24px_rgba(24,60,50,0.06)]'
+            ? 'bg-[#F7F0E5]/92 backdrop-blur-md border-b border-[#B99A62]/30 shadow-[0_4px_24px_rgba(46,7,16,0.08)]'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
@@ -80,7 +84,9 @@ export function SceneNavigation({
                 >
                   {scene.label}
                   {isActive && (
-                    <span
+                    <motion.span
+                      layoutId="activeNavUnderline"
+                      transition={{ type: 'spring', stiffness: 320, damping: 32 }}
                       aria-hidden="true"
                       className="absolute left-0 right-0 -bottom-0.5 h-px bg-[#B99A62]"
                     />
@@ -124,56 +130,69 @@ export function SceneNavigation({
             style={{ transform: `scaleX(${Math.min(1, Math.max(0, scrollProgress))})` }}
           />
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Mobile scene navigation"
-          className="fixed inset-0 z-50 bg-[#4A0E1B] text-[#F7F0E5] flex flex-col justify-between p-6 md:hidden"
-        >
-          <div className="flex items-center justify-between border-b border-[#B99A62]/30 pb-4">
-            <span className="font-display italic text-2xl tracking-wider text-[#F7F0E5]">
-              P &amp; M
-            </span>
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(false)}
-              aria-label="Close navigation menu"
-              className="w-11 h-11 inline-flex items-center justify-center border border-[#B99A62]/45 text-[#F7F0E5] cursor-pointer"
-            >
-              <X className="w-5 h-5" aria-hidden="true" />
-            </button>
-          </div>
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile scene navigation"
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-50 bg-[#4A0E1B] text-[#F7F0E5] flex flex-col justify-between p-6 md:hidden"
+          >
+            <div className="flex items-center justify-between border-b border-[#B99A62]/30 pb-4">
+              <span className="font-display italic text-2xl tracking-wider text-[#F7F0E5]">
+                P &amp; M
+              </span>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close navigation menu"
+                className="w-11 h-11 inline-flex items-center justify-center border border-[#B99A62]/45 text-[#F7F0E5] cursor-pointer"
+              >
+                <X className="w-5 h-5" aria-hidden="true" />
+              </button>
+            </div>
 
-          <nav className="flex flex-col gap-5 my-auto" aria-label="Mobile scenes">
-            {SCENES.map((scene) => {
-              const isActive = activeScene === scene.id;
-              return (
-                <button
-                  key={scene.id}
-                  type="button"
-                  onClick={() => handleLinkClick(scene.id)}
-                  className={`flex items-baseline gap-4 text-left py-2 border-b border-[#B99A62]/15 cursor-pointer transition-colors ${
-                    isActive ? 'text-[#D6BD8D]' : 'text-[#F7F0E5]/85 hover:text-[#D6BD8D]'
-                  }`}
-                >
-                  <span className="font-sans text-xs tracking-[0.2em] text-[#B99A62]">
-                    {scene.index}
-                  </span>
-                  <span className="font-display text-3xl italic">{scene.label}</span>
-                </button>
-              );
-            })}
-          </nav>
+            <nav className="flex flex-col gap-5 my-auto" aria-label="Mobile scenes">
+              {SCENES.map((scene, idx) => {
+                const isActive = activeScene === scene.id;
+                return (
+                  <motion.button
+                    key={scene.id}
+                    type="button"
+                    initial={{ opacity: 0, x: -14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.35,
+                      delay: 0.06 + idx * 0.05,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    onClick={() => handleLinkClick(scene.id)}
+                    className={`flex items-baseline gap-4 text-left py-2 border-b border-[#B99A62]/15 cursor-pointer transition-colors ${
+                      isActive ? 'text-[#D6BD8D]' : 'text-[#F7F0E5]/85 hover:text-[#D6BD8D]'
+                    }`}
+                  >
+                    <span className="font-sans text-xs tracking-[0.2em] text-[#B99A62]">
+                      {scene.index}
+                    </span>
+                    <span className="font-display text-3xl italic">{scene.label}</span>
+                  </motion.button>
+                );
+              })}
+            </nav>
 
-          <div className="pt-4 border-t border-[#B99A62]/25 text-xs font-sans tracking-[0.18em] uppercase text-[#E7D8C5]/75">
-            <span>Engagement Invitation</span>
-          </div>
-        </div>
-      )}
+            <div className="pt-4 border-t border-[#B99A62]/25 text-xs font-sans tracking-[0.18em] uppercase text-[#E7D8C5]/75">
+              <span>Engagement Invitation</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Subtle Desktop Side Numeral Chapter Rail */}
       <aside

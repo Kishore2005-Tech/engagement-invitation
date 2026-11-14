@@ -22,6 +22,7 @@
     background-color: #F7F0E5;
     color: #320A14;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -70,6 +71,27 @@
   }
 }
 
+@keyframes eqPulse {
+  0%, 100% {
+    transform: scaleY(0.38);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.eq-bar-1 {
+  animation: eqPulse 0.85s ease-in-out infinite;
+}
+
+.eq-bar-2 {
+  animation: eqPulse 0.72s ease-in-out 0.2s infinite;
+}
+
+.eq-bar-3 {
+  animation: eqPulse 0.92s ease-in-out 0.35s infinite;
+}
+
 .gold-shimmer-text {
   background: linear-gradient(
     110deg,
@@ -87,7 +109,7 @@
 }
 
 .paper-grain {
-  background-image: radial-gradient(rgba(24, 60, 50, 0.03) 1px, transparent 0);
+  background-image: radial-gradient(rgba(50, 10, 20, 0.025) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
@@ -104,6 +126,12 @@
     animation: none;
     background: none;
     color: #B99A62;
+  }
+
+  .eq-bar-1,
+  .eq-bar-2,
+  .eq-bar-3 {
+    animation: none;
   }
 
   *, *::before, *::after {

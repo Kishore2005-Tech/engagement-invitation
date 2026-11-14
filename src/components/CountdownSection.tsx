@@ -86,7 +86,7 @@ export function CountdownSection() {
     <section
       id="countdown"
       aria-label="Our Story and Live Engagement Countdown"
-      className="relative w-full bg-[#F7F0E5] paper-grain py-20 sm:py-28 px-4 sm:px-8"
+      className="relative w-full scroll-mt-14 sm:scroll-mt-16 bg-[#F7F0E5] paper-grain py-20 sm:py-28 px-4 sm:px-8"
     >
       <div className="mx-auto max-w-4xl">
         {/* Editorial Heading */}

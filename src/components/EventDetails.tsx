@@ -21,7 +21,7 @@ export function EventDetails({ onContinue }: EventDetailsProps) {
     <section
       id="celebration"
       aria-label="Scratch to Reveal Engagement Date and Time"
-      className="relative w-full overflow-hidden bg-[#E7D8C5]/45 border-t border-b border-[#B99A62]/25 py-20 sm:py-28 px-4 sm:px-8"
+      className="relative w-full overflow-hidden scroll-mt-14 sm:scroll-mt-16 bg-[#E7D8C5]/45 border-t border-b border-[#B99A62]/25 py-20 sm:py-28 px-4 sm:px-8"
     >
       {/* Subtle Floral Corner Accents */}
       <div
