@@ -8,7 +8,7 @@
   🌐 <a href="https://pavithramonish.vercel.app/">Live Website</a> · 💻 <a href="https://github.com/Kishore2005-Tech/engagement-invitation">GitHub Repository</a>
 </p>---
 
-✨ About the Project**
+**✨ About the Project**
 
 Engagement Invitation is a personalized digital invitation website developed for my sister's engagement ceremony.
 
