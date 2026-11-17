@@ -16,7 +16,7 @@ Instead of a traditional invitation alone, this project brings the celebration o
 
 The goal was simple: create something memorable, beautiful, and personal for one of the most special moments in our family.
 
-🎯 Project Highlights
+🎯 Project Highlights**
 
 - 💍 Personalized digital engagement invitation.
 - 🎨 Elegant and visually appealing user interface.
