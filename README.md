@@ -24,7 +24,7 @@ The goal was simple: create something memorable, beautiful, and personal for one
 - ✨ Smooth animations and interactive visual elements.
 - ❤️ Designed with a personal touch to celebrate a special occasion.
 
-🛠️ Tech Stack**
+**🛠️ Tech Stack**
 
 Technology| Purpose
 React 19| UI development
